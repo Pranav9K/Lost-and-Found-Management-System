@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NIT Rourkela Lost & Found</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/homestyle.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/en/e/e2/NIT_Rourkela_Colour_Logo.svg"
+          alt="NIT Rourkela Logo" class="logo-img">
+      <span class="logo-text">NIT Rourkela</span>
+    </div>
+
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+    <div class="nav-actions" id="navMenu">
+      <a class="username">userid</a>
+      <a href="responses.html" class="nav-button">Lost and Found Items</a>
+      <a class="nav-button nav-signin" href="signin.html">Sign in</a>
+      <a class="nav-button nav-signout" href="home.html" onclick='localStorage.removeItem("Username");localStorage.removeItem("otp");localStorage.removeItem("otpExpiry");localStorage.removeItem("otpEmail");'>Sign out</a>
+    </div>
+  </nav>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("active");
+    }
+  </script>
+
+
+  <main class="main-content">
+    <div class="hero-section">
+      <h1 class="hero-title">Lost & Found</h1>
+      <p class="hero-subtitle">Help our NIT Rourkela community by reporting lost items or posting found items. Together we can reunite people with their belongings.</p>
+      <button onclick="window.location.href='postitem.html'" class="post-item-button">
+        Post Item
+      </button>
+    </div>
+
+    <div class="features-section">
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3 class="feature-title">Report Lost Items</h3>
+        <p class="feature-description">Lost something on campus? Report it here and our community will help you find it.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">📢</div>
+        <h3 class="feature-title">Post Found Items</h3>
+        <p class="feature-description">Found something that doesn't belong to you? Post it here to help reunite it with its owner.</p>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🤝</div>
+        <h3 class="feature-title">Community Support</h3>
+        <p class="feature-description">Join our community effort to help each other and make NIT Rourkela a better place.</p>
+      </div>
+    </div>
+  </main>
+
+
+  <script>
+    const userid = localStorage.getItem("Username");
+    const signInLink = document.querySelector(".nav-signin");
+    const signOutLink = document.querySelector(".nav-signout");
+    if (userid) {
+      document.querySelector(".username").textContent = userid;
+      if (signInLink) signInLink.style.display = "none";
+    } else {
+      document.querySelector(".username").textContent = "Guest";
+      if (signOutLink) signOutLink.style.display = "none";
+    }
+  </script> 
+
+</body>
+</html>

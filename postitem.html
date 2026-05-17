@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NIT Rourkela Lost & Found</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/postitem.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/en/e/e2/NIT_Rourkela_Colour_Logo.svg"
+          alt="NIT Rourkela Logo" class="logo-img">
+      <span class="logo-text">NIT Rourkela</span>
+    </div>
+
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+    <div class="nav-actions" id="navMenu">
+      <a class="username">userid</a>
+      <a href="home.html" class="nav-button">Home</a>
+      <a href="responses.html" class="nav-button">Lost and Found Items</a>
+      <a class="nav-button nav-signin" href="signin.html">Sign in</a>
+      <a class="nav-button nav-signout" href="home.html" onclick='localStorage.removeItem("Username");localStorage.removeItem("otp");localStorage.removeItem("otpExpiry");localStorage.removeItem("otpEmail");'>Sign out</a>
+    </div>
+  </nav>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("active");
+    }
+  </script>
+
+  <div class="container">
+    <h1 class="title">Post a Lost or Found Item</h1>
+    <form class="item-form" action="/submit-item" method="POST" enctype="multipart/form-data">
+
+      <label class="rollno">Roll No:</label>
+      <input type="hidden" name="rollno" id="rollno">
+
+      <label>Item Type:</label>
+      <select name="itemType" required>
+        <option value="" disabled selected>Select an option</option>
+        <option value="lost">Lost</option>
+        <option value="found">Found</option>
+      </select>
+
+      <label>Item Name:</label>
+      <input type="text" name="itemName" required>
+
+      <label>Description:</label>
+      <textarea name="description" required></textarea>
+
+      <label>Date Lost:</label>
+      <input type="date" name="dateLost" required>
+
+      <label>Hostel/Room No:</label>
+      <input type="text" name="hostelandroomNo" required>
+
+      <label>Contact Information:</label>
+      <input type="text" name="contact" required>       
+
+      <label>Item Image</label>
+      <input type="file" name="image" accept="image/*" required>
+
+      <button type="submit" class="submit-button">Submit</button>
+    </form> 
+  </div>
+
+  <script>
+    const userid = localStorage.getItem("Username");
+    
+    document.querySelector(".rollno").textContent = userid;
+    document.getElementById("rollno").value = userid;
+
+    if (userid) {
+      document.querySelector(".username").textContent = userid;
+      const si = document.querySelector(".nav-signin");
+      const so = document.querySelector(".nav-signout");
+      if (si) si.style.display = "none";
+    } else {
+      document.querySelector(".username").textContent = "Guest";
+      const so = document.querySelector(".nav-signout");
+      if (so) so.style.display = "none";
+    }
+
+    if (!userid) {
+      alert("Please login again");
+      window.location.href = "signin.html";
+    }
+  </script>
+
+</body>
+</html>

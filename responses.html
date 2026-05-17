@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lost & Found Items - NIT Rourkela</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/responsesstyle.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/en/e/e2/NIT_Rourkela_Colour_Logo.svg"
+          alt="NIT Rourkela Logo" class="logo-img">
+      <span class="logo-text">NIT Rourkela</span>
+    </div>
+
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+    <div class="nav-actions" id="navMenu">
+      <a class="username">userid</a>
+      <a href="home.html" class="nav-button">Home</a>
+      <a class="nav-button nav-signin" href="signin.html">Sign in</a>
+      <a class="nav-button nav-signout" href="home.html" onclick='localStorage.removeItem("Username");localStorage.removeItem("otp");localStorage.removeItem("otpExpiry");localStorage.removeItem("otpEmail");'>Sign out</a>
+    </div>
+  </nav>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById("navMenu").classList.toggle("active");
+    }
+  </script>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1 class="page-title">Lost & Found Items</h1>
+      <p class="page-subtitle">Browse through all reported lost and found items from our community</p>
+    </div>
+    <div class="box">
+      <div class="buttoncenterarea">
+        <img id="preview" width="200" style="display:none;">
+      </div>
+    </div>
+    <div id="items-root"></div>
+  </main>  
+
+  <script>
+    const userid = localStorage.getItem("Username");  
+
+    if (userid) {
+      document.querySelector(".username").textContent = userid;
+      const si = document.querySelector(".nav-signin");
+      if (si) si.style.display = "none";
+    } else {
+      document.querySelector(".username").textContent = "Guest";
+      const so = document.querySelector(".nav-signout");
+      if (so) so.style.display = "none";
+    }
+    
+    function pick() {
+      document.getElementById("imageInput").click();
+    }
+    document.getElementById("imageInput").onchange = function () {
+      var file = this.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function () {
+        localStorage.setItem("image", reader.result);
+      };
+      reader.readAsDataURL(file);
+    };
+
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn")
+          .forEach(b => b.classList.remove("active"));
+
+        btn.classList.add("active");
+    });
+  });
+
+    if (!userid) {
+      alert("Please login again");
+      window.location.href = "signin.html";
+    }
+  </script> 
+  <script src="scripts/script.js"></script>
+</body>
+</html>
