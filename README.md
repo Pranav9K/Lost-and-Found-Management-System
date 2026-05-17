@@ -39,7 +39,7 @@ This application prioritizes security and spam prevention to ensure a safe user 
 Follow these steps to run the application on your own machine.
 
 ### Step 1: Clone the Repository
-Open your terminal and clone the repository using the following command:
+Open your terminal and clone the repository using the following commands:
 
 git clone https://github.com/yourusername/nitr-lost-and-found.git
 
